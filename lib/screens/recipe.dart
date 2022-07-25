@@ -1,17 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../services/api_service.dart';
 
 class RecipeScreen extends StatelessWidget {
+  int id;
+  RecipeScreen({Key? key, required this.id}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder<Map>(
-          future: APIService.instance.getRecipe(),
+          future: APIService.instance.getRecipe(id),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
@@ -152,13 +155,16 @@ class RecipeScreen extends StatelessWidget {
                                         ],
                                       ),
                                       Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 20),
+
                                         child: SingleChildScrollView(
-                                            child: Html(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 20),
-                                                data: recipe['summary'],
-                                                defaultTextStyle:
-                                                    TextStyle(fontSize: 18, fontFamily: 'Montserrat'))),
+                                            child: HtmlWidget(
+                                                recipe['instructions'],
+                                                  textStyle:
+                                                // style:
+                                                    TextStyle(fontSize: 18, fontFamily: 'Montserrat'),
+                                            )),
                                       ),
                                       ListView.separated(
                                         itemBuilder: (context, index) {

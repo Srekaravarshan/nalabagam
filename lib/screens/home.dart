@@ -116,7 +116,7 @@ class _HomeState extends State<Home> {
                       return RecipeCard(
                           title: recipe['title'],
                           image: recipe['image'],
-                          url: recipe['spoonacularSourceUrl'],
+                          id: recipe['id'],
                           subtitle:
                               '${recipe['extendedIngredients'].length} Ingredients | ${recipe['readyInMinutes']} Min');
                     }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 25),

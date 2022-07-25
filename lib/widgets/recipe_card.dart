@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:nalabagam/screens/recipe.dart';
 
-import '../screens/recipe_web.dart';
-
 class RecipeCard extends StatelessWidget {
   final String title, image;
-  final String? subtitle, url;
-  final int? id;
+  final String? subtitle;
+  final int id;
 
   const RecipeCard(
       {Key? key,
       required this.title,
       required this.image,
       this.subtitle,
-      this.id,
-      this.url})
+      required this.id})
       : super(key: key);
 
   @override
@@ -23,9 +20,7 @@ class RecipeCard extends StatelessWidget {
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => url == null
-                ? RecipeScreen()
-                : RecipeWebview(url: url ?? '', title: title),
+            builder: (context) => RecipeScreen(id: id),
           )),
       child: Stack(
         children: [

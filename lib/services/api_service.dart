@@ -43,14 +43,14 @@ class APIService {
   }
 
   // Recipe Info
-  Future<Map> getRecipe() async {
+  Future<Map> getRecipe(int id) async {
     Map<String, String> parameters = {
       'includeNutrition': 'false',
       'apiKey': API_KEY,
     };
     Uri uri = Uri.https(
       _baseUrl,
-      '/recipes/716429/information',
+      '/recipes/$id/information',
       parameters,
     );
     Map<String, String> headers = {
@@ -69,7 +69,7 @@ class APIService {
   // Recipe Info
   Future<List> fetchRandomRecipe() async {
     Map<String, String> parameters = {
-      'number': '1',
+      'number': '6',
       'apiKey': API_KEY,
     };
     Uri uri = Uri.https(
