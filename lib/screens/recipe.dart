@@ -17,7 +17,7 @@ class RecipeScreen extends StatelessWidget {
           future: APIService.instance.getRecipe(id),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             print(snapshot.data);
             final Map recipe = snapshot.data ?? {};
@@ -72,7 +72,7 @@ class RecipeScreen extends StatelessWidget {
                                 ),
                                 Container(
                                     height: 500,
-                                    constraints: BoxConstraints(minHeight: 400),
+                                    constraints: const BoxConstraints(minHeight: 400),
                                     decoration: const BoxDecoration(
                                         border: Border(
                                             top: BorderSide(
@@ -80,82 +80,22 @@ class RecipeScreen extends StatelessWidget {
                                     child: TabBarView(children: <Widget>[
                                       ListView(
                                         shrinkWrap: true,
-                                        children: const [
-                                          ListTile(
-                                              leading: Icon(
-                                                Icons.circle,
-                                                color: Colors.red,
-                                              ),
-                                              title: Text(
-                                                'Non Vegetarian',
-                                                style: TextStyle(fontSize: 20),
-                                              )),
-                                          Divider(),
-                                          ListTile(
-                                              leading: Icon(
-                                                Icons.timer,
-                                                color: Colors.blue,
-                                              ),
-                                              title: Text(
-                                                'Ready in 45 Min',
-                                                style: TextStyle(fontSize: 20),
-                                              )),
-                                          Divider(),
-                                          ListTile(
-                                              leading: Text(
-                                                '\$1.63',
-                                                style: TextStyle(
-                                                    color: Colors.blue,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              title: Text(
-                                                'Price per serving',
-                                                style: TextStyle(fontSize: 20),
-                                              )),
-                                          Divider(),
-                                          ListTile(
-                                              leading: Text(
-                                                '2',
-                                                style: TextStyle(
-                                                    color: Colors.blue,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              title: Text(
-                                                'Servings',
-                                                style: TextStyle(fontSize: 20),
-                                              )),
-                                          Divider(),
-                                          ListTile(
-                                              leading: Text(
-                                                '10',
-                                                style: TextStyle(
-                                                    color: Colors.green,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              title: Text(
-                                                'Health Score',
-                                                style: TextStyle(fontSize: 20),
-                                              )),
-                                          Divider(),
-                                          ListTile(
-                                              leading: Text(
-                                                '209',
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20),
-                                              ),
-                                              title: Text(
-                                                'Likes',
-                                                style: TextStyle(fontSize: 20),
-                                              )),
+                                        children: [
+                                          tile(recipe['vegetarian'] ? 'Vegetarian' :'Non Vegetarian', color: recipe['vegetarian'] ? Colors.green :Colors.red, icon: Icons.circle, hasIcon: true),
+                                          const Divider(),
+                                          tile('Ready in ${recipe['readyInMinutes']} Min', color: Colors.blue, icon: Icons.timer, hasIcon: true),
+                                          const Divider(),
+                                          tile('Price per serving', leading: '\$${recipe['pricePerServing']}', color: Colors.blue),
+                                          const Divider(),
+                                          tile('Servings', leading: '${recipe['servings']}', color: Colors.blue),
+                                          const Divider(),
+                                          tile('Health Score', leading: '${recipe['healthScore']}', color: Colors.green),
+                                          const Divider(),
+                                          tile('Likes', leading: '${recipe['aggregateLikes']}', color: Colors.red),
                                         ],
                                       ),
                                       Container(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             vertical: 20),
 
                                         child: SingleChildScrollView(
@@ -163,7 +103,7 @@ class RecipeScreen extends StatelessWidget {
                                                 recipe['instructions'],
                                                   textStyle:
                                                 // style:
-                                                    TextStyle(fontSize: 18, fontFamily: 'Montserrat'),
+                                                    const TextStyle(fontSize: 18, fontFamily: 'Montserrat'),
                                             )),
                                       ),
                                       ListView.separated(
@@ -175,16 +115,16 @@ class RecipeScreen extends StatelessWidget {
                                           return ListTile(
                                             title: Text(
                                               ingredients['aisle'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold, fontFamily: 'Montserrat',
                                                   fontSize: 18),
                                             ),
-                                            trailing: Text(ingredients['unit'], style: TextStyle(fontSize: 16, fontFamily: 'Montserrat', fontStyle: FontStyle.italic),),
+                                            trailing: Text(ingredients['unit'], style: const TextStyle(fontSize: 16, fontFamily: 'Montserrat', fontStyle: FontStyle.italic),),
                                           );
                                         },
                                         shrinkWrap: true,
                                         itemCount:
-                                            recipe['extendedIngredients'].length, separatorBuilder: (BuildContext context, int index) => Divider(),
+                                            recipe['extendedIngredients'].length, separatorBuilder: (BuildContext context, int index) => const Divider(),
                                       ),
                                     ]))
                               ])),
@@ -210,5 +150,23 @@ class RecipeScreen extends StatelessWidget {
             );
           }),
     );
+  }
+
+  Widget tile (String title,  {String? leading, required Color color , IconData? icon,bool hasIcon = false}) {
+    return ListTile(
+        leading: hasIcon ? Icon(
+          icon,
+          color: color,
+        ) :Text(
+          leading ?? '',
+          style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 20),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 20),
+        ));
   }
 }

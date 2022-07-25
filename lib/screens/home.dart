@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
                       final recipe = recipes[index];
                       return RecipeCard(
                           title: recipe['title'],
-                          image: recipe['image'],
+                          image: recipe['image'] ?? '',
                           id: recipe['id'],
                           subtitle:
                               '${recipe['extendedIngredients'].length} Ingredients | ${recipe['readyInMinutes']} Min');
