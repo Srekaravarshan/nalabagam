@@ -54,7 +54,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 borderRadius: BorderRadius.circular(5)),
             child: Center(
               child: TextField(
-
                 controller: search,
                 onSubmitted: (value) {
                   setState(() {});

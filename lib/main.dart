@@ -18,20 +18,3 @@ void main() async {
   runApp(
       MaterialApp(title: 'Nalabagam', home: login == true ? const Home() : Login()));
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Nalabagam',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const Home(),
-    );
-  }
-}

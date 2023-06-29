@@ -81,7 +81,7 @@ class RecipeScreen extends StatelessWidget {
                                       ListView(
                                         shrinkWrap: true,
                                         children: [
-                                          tile(recipe['vegetarian'] ? 'Vegetarian' :'Non Vegetarian', color: recipe['vegetarian'] ? Colors.green :Colors.red, icon: Icons.circle, hasIcon: true),
+                                          tile(recipe['vegetarian'] ? 'Vegetarian' : 'Non Vegetarian', color: recipe['vegetarian'] ? Colors.green :Colors.red, icon: Icons.circle, hasIcon: true),
                                           const Divider(),
                                           tile('Ready in ${recipe['readyInMinutes']} Min', color: Colors.blue, icon: Icons.timer, hasIcon: true),
                                           const Divider(),
